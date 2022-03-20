@@ -298,6 +298,10 @@ int main(){
 //==================<除法動作>=====================
         if(operation[0]=='/'){
             int size=strlen(first)-strlen(second);
+            int ok=1;
+            if(strlen(first)<strlen(second) ||(strlen(first)==strlen(second)&&strcmp(first,second)<=0)){
+                ok=0;
+            }
             int add=0;
             char change_second[9999]={'\0'};      //用來存(變化的除數)
             int run=0;
@@ -342,14 +346,13 @@ int main(){
                     ans_run_size+=minus;
                 }
             }
-            int ok=0;
-            for(int x=0;x<=size;x++){
-                ok=1;
+            for(int x=0;x<size;x++){
                 printf("%d",div_ans[x]);
             }
             if(ok==0){
                 printf("0");
             }
+//2589147598732159820589 / 2735987124987
 //==================<小數處理>=====================
             int first_not_ok=0;
             char save_first[9999]={'\0'};        //判定小數第一位是否為0
@@ -388,7 +391,7 @@ int main(){
                 }
                 printf(".");
                 if(first_not_ok==1){
-                    for(int x=1;x<abs(size);x++){
+                    for(int x=1;x<=abs(size);x++){
                         printf("0");
                     }
 
