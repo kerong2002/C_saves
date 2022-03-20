@@ -4,29 +4,29 @@
 #include<stdlib.h>
 #include<memory.h>
 #include<stdbool.h>
-char first[999]={'\0'};
-char second[999]={'\0'};
+char first[9999]={'\0'};
+char second[9999]={'\0'};
 int borrow=10,carry=0;
 int f_size;
 int s_size;
-int div_ans[999];
-int div_size[999];
-int point_of_decimal[999];
-int point_size[999];
+int div_ans[9999];
+int div_size[9999];
+int point_of_decimal[9999];
+int point_size[9999];
 //==================<除法翻轉>======================
 void div_reverse(char list[]){
-    char set[999]={'\0'};
+    char set[9999]={'\0'};
     int cnt=0;
     for(int x=strlen(list)-1;x>=0;x--){
         set[cnt]=list[x];
         cnt+=1;
     }
-    memset(list,'\0',sizeof(char)*999);
+    memset(list,'\0',sizeof(char)*9999);
     strcpy(list,set);
 }
 //================<強制轉成int>=====================
 void change_int(char list[]){
-    char save_int[999]={'\0'};
+    char save_int[9999]={'\0'};
     int ok=0;
     int cnt=0;
     for(int x=0;x<strlen(list);x++){
@@ -38,7 +38,7 @@ void change_int(char list[]){
             cnt+=1;
         }
     }
-    memset(list,'\0',sizeof(char)*999);
+    memset(list,'\0',sizeof(char)*9999);
     strcpy(list,save_int);
 }
 //===================<交換>=====================
@@ -61,7 +61,7 @@ int add(char first[],char second[],int answer[]){
     int run=0;
     int f_size=strlen(first);
     int s_size=strlen(second);
-    for(int x=0;x<9999;x++){
+    for(int x=0;x<99999;x++){
         if(first[x]=='\0' && second[x]=='\0' && carry ==0){
             return run;
         }
@@ -83,7 +83,7 @@ int minus(char first[],char second[],int answer[]){
     int run=0;
     int f_size=strlen(first);
     int s_size=strlen(second);
-    for(int x=0;x<999;x++){
+    for(int x=0;x<9999;x++){
         if(first[x]=='\0' && second[x]=='\0'){
             return run;
         }
@@ -117,9 +117,9 @@ void multiply(char first[],char second[],int answer[]){
     int f_size=strlen(first);
     int s_size=strlen(second);
     int max_size=f_size+s_size;
-    int **save=(int **)calloc(999,sizeof(int*));
+    int **save=(int **)calloc(9999,sizeof(int*));
     for(int x=0;x<max_size;x++){
-        save[x]=(int *)calloc(999,sizeof(int));
+        save[x]=(int *)calloc(9999,sizeof(int));
     }
     for(int x=0;x<f_size;x++){
         for(int y=0;y<s_size;y++){
@@ -155,17 +155,17 @@ void multiply(char first[],char second[],int answer[]){
         }
     }
 
-    for(int i=0;i<999;i++){
+    for(int i=0;i<9999;i++){
         free(save[i]);
     }
     free(save);
 }
 //=================<除法的減法>===================
 void div_sub(char first[],char change_second[]){
-    char sub_result[999]={'\0'};    //減法結果
+    char sub_result[9999]={'\0'};    //減法結果
     div_reverse(first);             //翻轉做減法
     div_reverse(change_second);     //翻轉做減法
-    for(int x=0;x<999;x++){
+    for(int x=0;x<9999;x++){
         if(first[x]=='\0' && change_second[x]=='\0'){
             break;                  //減法終止
         }
@@ -191,17 +191,17 @@ void div_sub(char first[],char change_second[]){
     }
     div_reverse(sub_result);                                //翻轉回來
     change_int(sub_result);                                 //轉成int
-    memset(first,'\0',sizeof(char)*999);
+    memset(first,'\0',sizeof(char)*9999);
     strcpy(first,sub_result);
 }
 //===================<主程式>=====================
 int main(){
     char operation[1];
     while(scanf("%s%s%s",first,&operation[0],second)!=EOF){
-        char R_first[999]={'\0'};
-        char R_second[999]={'\0'};
-        char div[999]={'\0'};
-        int *answer=(int *)calloc(999,sizeof(int));
+        char R_first[9999]={'\0'};
+        char R_second[9999]={'\0'};
+        char div[9999]={'\0'};
+        int *answer=(int *)calloc(9999,sizeof(int));
 //==================<加法動作>=====================
         if(operation[0]=='+'){
             reverse(first,R_first);
@@ -239,8 +239,8 @@ int main(){
                 if(not_big==1){//減數比被減數小
                     reverse(first,R_first);
                     reverse(second,R_second);
-                    char change_f[999]={'\0'};
-                    char change_s[999]={'\0'};
+                    char change_f[9999]={'\0'};
+                    char change_s[9999]={'\0'};
                     change(change_f,R_second);
                     change(change_s,R_first);
                     int run=minus(change_f,change_s,answer);
@@ -276,8 +276,8 @@ int main(){
             else if(f_size<s_size){//減數比被減數位數少
                 reverse(first,R_first);
                 reverse(second,R_second);
-                char change_f[999]={'\0'};
-                char change_s[999]={'\0'};
+                char change_f[9999]={'\0'};
+                char change_s[9999]={'\0'};
                 change(change_f,R_second);
                 change(change_s,R_first);
                 int run=minus(change_f,change_s,answer);
@@ -295,7 +295,7 @@ int main(){
         }
 //==================<除法動作>=====================
         if(operation[0]=='/'){
-            char change_second[999]={'\0'};      //用來存(變化的除數)
+            char change_second[9999]={'\0'};      //用來存(變化的除數)
             int run=0;
             int save_run=0;
             if(first[0]=='0') change_int(first);  //強制轉型int
@@ -344,7 +344,7 @@ int main(){
             }
 //==================<小數處理>=====================
             int first_not_ok=0;
-            char save_first[999]={'\0'};        //判定小數第一位是否為0
+            char save_first[9999]={'\0'};        //判定小數第一位是否為0
             strcpy(save_first,first);
             strcat(save_first,"0");
             if(first[0]!='\0'){                 //偵測有要做小數
@@ -352,7 +352,7 @@ int main(){
                     strcat(first,"0");
                 }
                 int point_run=0;
-                char change_second[999]={'\0'};
+                char change_second[9999]={'\0'};
                 while((strlen(first)>strlen(second))||strcmp(first,second)>=0){
                     if((strlen(first)==strlen(second))&&strcmp(first,second)<0) break;//終止條件
                     if((strlen(first)<strlen(second))) break;
@@ -409,12 +409,12 @@ int main(){
             }
         }
         printf("\n");
-        memset(div_ans,0,sizeof(int)*999);
-        memset(point_of_decimal,0,sizeof(int)*999);
-        memset(first,'\0',sizeof(char)*999);
-        memset(second,'\0',sizeof(char)*999);
-        memset(R_first,'\0',sizeof(char)*999);
-        memset(R_second,'\0',sizeof(char)*999);
+        memset(div_ans,0,sizeof(int)*9999);
+        memset(point_of_decimal,0,sizeof(int)*9999);
+        memset(first,'\0',sizeof(char)*9999);
+        memset(second,'\0',sizeof(char)*9999);
+        memset(R_first,'\0',sizeof(char)*9999);
+        memset(R_second,'\0',sizeof(char)*9999);
         free(answer);
     }
     return 0;
