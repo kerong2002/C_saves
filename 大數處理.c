@@ -340,8 +340,13 @@ int main(){
                     ans_run_size+=minus;
                 }
             }
+            int ok=0;
             for(int x=0;x<=size;x++){
+                ok=1;
                 printf("%d",div_ans[x]);
+            }
+            if(ok==0){
+                printf("0");
             }
 //==================<小數處理>=====================
             int first_not_ok=0;
