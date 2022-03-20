@@ -27,19 +27,19 @@ int main(){
     while(scanf("%d",&n)!=EOF){
         for(int x=0;x<max;x++){
             if(n==1){
-                printf("«D½è¼Æ\n");
+                printf("éžè³ªæ•¸\n");
                 break;
             }
             if(n==prime[x]){
-                printf("½è¼Æ\n");
+                printf("è³ªæ•¸\n");
                 break;
             }
             if(n%prime[x]==0){
-                printf("«D½è¼Æ\n");
+                printf("éžè³ªæ•¸\n");
                 break;
             }
             else if(x==max-1){
-                printf("½è¼Æ\n");
+                printf("è³ªæ•¸\n");
             }
         }
     }
