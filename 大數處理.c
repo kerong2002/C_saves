@@ -163,6 +163,8 @@ void multiply(char first[],char second[],int answer[]){
 //=================<除法的減法>===================
 void div_sub(char first[],char change_second[]){
     char sub_result[9999]={'\0'};    //減法結果
+//    printf("被除數(%s),",first);
+//    printf("除數(%s)\n",change_second);
     div_reverse(first);             //翻轉做減法
     div_reverse(change_second);     //翻轉做減法
     for(int x=0;x<9999;x++){
@@ -386,7 +388,10 @@ int main(){
                 }
                 printf(".");
                 if(first_not_ok==1){
-                    printf("0");
+                    for(int x=1;x<abs(size);x++){
+                        printf("0");
+                    }
+
                 }
                 int max;
                 if(point_size[0]!=0){
