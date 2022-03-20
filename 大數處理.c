@@ -295,9 +295,10 @@ int main(){
         }
 //==================<除法動作>=====================
         if(operation[0]=='/'){
+            int size=strlen(first)-strlen(second);
+            int add=0;
             char change_second[9999]={'\0'};      //用來存(變化的除數)
             int run=0;
-            int save_run=0;
             if(first[0]=='0') change_int(first);  //強制轉型int
             if(second[0]=='0') change_int(second);//強制轉型int
             while((strlen(first)>strlen(second))||strcmp(first,second)>=0){      //被除數比除數大時要進行動作
@@ -339,7 +340,7 @@ int main(){
                     ans_run_size+=minus;
                 }
             }
-            for(int x=0;x<=ans_run_size;x++){
+            for(int x=0;x<=size;x++){
                 printf("%d",div_ans[x]);
             }
 //==================<小數處理>=====================
