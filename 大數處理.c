@@ -296,11 +296,31 @@ int main(){
             multiply(R_first,R_second,answer);
         }
 //==================<除法動作>=====================
+/*9194871398571384 / 187497325325143*/
         if(operation[0]=='/'){
+            int other=0;
+            if((strlen(first)==strlen(second) &&strcmp(first,second)<0)|| strlen(first)<strlen(second)){
+                other=1;    //小數
+            }
+            int old_first_size=strlen(first);
+            int ans_size=old_first_size-strlen(second);
             int size=strlen(first)-strlen(second);
+            char second_judge[999]={'\0'};
+            strcpy(second_judge,second);
+            for(int x=0;x<size;x++){
+                strcat(second_judge,"0");
+            }
             int ok=1;
-            if(strlen(first)<strlen(second) ||(strlen(first)==strlen(second)&&strcmp(first,second)<=0)){
-                ok=0;
+            if(strcmp(first,second_judge)>=0){
+                ans_size+=1;
+            }
+            if(strlen(first)==strlen(second)&&strcmp(first,second)==0){
+                printf("1\n");
+                continue;
+            }
+            int decimal_zero=0;
+            if(strlen(first)==strlen(second)&&strcmp(first,second)>0){
+                size+=1;
             }
             int add=0;
             char change_second[9999]={'\0'};      //用來存(變化的除數)
@@ -331,6 +351,9 @@ int main(){
                 div_size[run]=strlen(change_second);
                 run+=1;
             }
+            if(strlen(first)<strlen(second)){
+                decimal_zero=strlen(change_second)-strlen(second);
+            }
             int max=div_size[0];
             int cnt=0;
             int ans_run_size=0;
@@ -346,22 +369,32 @@ int main(){
                     ans_run_size+=minus;
                 }
             }
-            for(int x=0;x<size;x++){
+            for(int x=0;x<ans_size;x++){
                 printf("%d",div_ans[x]);
             }
-            if(ok==0){
+//==================<小數處理>=====================
+            if(other==1){
                 printf("0");
             }
-//2589147598732159820589 / 2735987124987
-//==================<小數處理>=====================
-            int first_not_ok=0;
-            char save_first[9999]={'\0'};        //判定小數第一位是否為0
-            strcpy(save_first,first);
-            strcat(save_first,"0");
+            int zero_size=0;
+            char judge_first[999]={'\0'};
+            strcpy(judge_first,first);
+            if(strlen(first)<strlen(second)){
+                for(int x=1;x<=strlen(second)-strlen(first);x++){
+                    strcat(judge_first,"0");
+                }
+                if(strcmp(judge_first,second)<0){
+                    zero_size=strlen(second)-strlen(first);
+                }
+                else if(strcmp(judge_first,second)>=0){
+                    zero_size=strlen(second)-strlen(first)-1;
+                }
+            }
             if(first[0]!='\0'){                 //偵測有要做小數
                 for(int x=0;x<10;x++){
                     strcat(first,"0");
                 }
+                int old_first_size=strlen(first);
                 int point_run=0;
                 char change_second[9999]={'\0'};
                 while((strlen(first)>strlen(second))||strcmp(first,second)>=0){
@@ -375,9 +408,6 @@ int main(){
                             strcat(change_second,"0");
                         }
                     }
-                    if(strlen(save_first)<strlen(second)||(strcmp(save_first,second)<0 && strlen(second)==strlen(save_first))&& first_not_ok==0){
-                        first_not_ok=1;                 //小數點後第一位需判定是否為0
-                    }
                     if((strcmp(first,change_second)>=0) && strlen(change_second)>=strlen(second)){
                         div_sub(first,change_second);
                     }
@@ -385,24 +415,11 @@ int main(){
                         change_second[strlen(change_second)-1]='\0';
                         div_sub(first,change_second);
                     }
-
                     point_size[point_run]=strlen(change_second);
                     point_run+=1;
                 }
                 printf(".");
-                if(first_not_ok==1){
-                    for(int x=1;x<=abs(size);x++){
-                        printf("0");
-                    }
-
-                }
-                int max;
-                if(point_size[0]!=0){
-                    max=point_size[0];
-                }
-                else{
-                    max=point_size[1];
-                }
+                int max=point_size[0];
                 int cnt=0;
                 int ans_run_size=0;
                 for(int x=0;x<point_run;x++){
@@ -416,6 +433,9 @@ int main(){
                         max=point_size[x];
                         ans_run_size+=minus;
                     }
+                }
+                for(int x=0;x<zero_size;x++){
+                    printf("0");
                 }
                 for(int x=0;x<=ans_run_size;x++){
                     printf("%d",point_of_decimal[x]);
