@@ -23,7 +23,7 @@ void postorder(btree ptr){ //後序
         printf("[%2d]",ptr->data);
     }
 }
-void preorder(btree ptr){   //後序
+void preorder(btree ptr){   //前序
     if(ptr!=NULL){
         printf("[%2d]",ptr->data);
         preorder(ptr->left);
